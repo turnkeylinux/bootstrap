@@ -30,7 +30,7 @@ bsdutils
 coreutils
 debianutils
 dash                 
-diff                 
+diffutils
 dpkg
 e2fsprogs
 findutils            
