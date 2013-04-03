@@ -1,4 +1,4 @@
-RELEASE ?= debian/wheezy
+RELEASE ?= debian/squeeze
 
 define bootstrap/post
 	@echo;
