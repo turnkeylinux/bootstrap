@@ -8,7 +8,7 @@ BT = /turnkey/buildtasks
 endif
 endif
 
-TARGET_RSYNC = $(FAB_PATH)/bootstraps/$(shell basename $(RELEASE))-$(FAB_ARCH)/
+TARGET_RSYNC = $(FAB_PATH)/bootstraps/$(shell basename $(RELEASE))/
 TARGET_RELEASE = build/bootstrap-$(shell basename $(RELEASE))-$(FAB_ARCH).tar.gz
 
 define bootstrap/post
