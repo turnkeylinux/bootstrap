@@ -1,0 +1,31 @@
+build
+-----
+
+export RELEASE=debian/wheezy
+make clean
+make
+
+copy generated bootstrap to bootstraps folder
+---------------------------------------------
+
+rsync --delete -Hac -v build/bootstrap/ /turnkey/fab/bootstraps/$(basename $RELEASE)/
+
+generate release tarball and sign
+---------------------------------
+
+BT=/turnkey/private/buildtasks
+ARCH=$(dpkg --print-architecture)
+TARBALL=/turnkey/fab/build/bootstrap-$(basename $RELEASE)-$ARCH.tar.gz
+
+ln build/bootstrap.tar.gz $TARGET
+BT_CONFIG=$BT/config $BT/bin/generate-signature $TARBALL
+
+publish
+-------
+
+BT=/turnkey/private/buildtasks
+export BT_CONFIG=$BT/config
+. $BT_CONFIG/common.cfg
+export PUBLISH_DEST=${BT_PUBLISH_IMGS}/bootstrap/
+$BT/bin/publish-files ${TARBALL}*
+
