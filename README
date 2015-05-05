@@ -13,19 +13,22 @@ rsync --delete -Hac -v build/bootstrap/ $FAB_PATH/bootstraps/$(basename $RELEASE
 generate release tarball and sign
 ---------------------------------
 
-BT=/turnkey/private/buildtasks
+BT=/turnkey/public/buildtasks
+export BT_CONFIG=$BT/config
+
 ARCH=$(dpkg --print-architecture)
 TARBALL=$FAB_PATH/build/bootstrap-$(basename $RELEASE)-$ARCH.tar.gz
 
 ln build/bootstrap.tar.gz $TARBALL
-BT_CONFIG=$BT/config $BT/bin/generate-signature $TARBALL
+$BT/bin/generate-signature $TARBALL
 
 publish
 -------
 
-BT=/turnkey/private/buildtasks
-. $BT/config/common.cfg
+BT=/turnkey/public/buildtasks
 export BT_CONFIG=$BT/config
+
+. $BT_CONFIG/common.cfg
 export PUBLISH_DEST=${BT_PUBLISH_IMGS}/bootstrap/
 $BT/bin/publish-files $FAB_PATH/build/bootstrap-$(basename $RELEASE)-*
 
