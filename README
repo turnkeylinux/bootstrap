@@ -15,12 +15,14 @@ generate release tarball and sign
 
 BT=/turnkey/public/buildtasks
 export BT_CONFIG=$BT/config
+. $BT_CONFIG/common.cfg
 
 ARCH=$(dpkg --print-architecture)
 TARBALL=$FAB_PATH/build/bootstrap-$(basename $RELEASE)-$ARCH.tar.gz
 
 ln build/bootstrap.tar.gz $TARBALL
 $BT/bin/generate-signature $TARBALL
+$BT/bin/sign-signature $TARBALL.sig
 
 publish
 -------
