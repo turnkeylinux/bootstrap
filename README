@@ -8,29 +8,18 @@ make
 copy generated bootstrap to bootstraps folder
 ---------------------------------------------
 
-rsync --delete -Hac -v build/bootstrap/ $FAB_PATH/bootstraps/$(basename $RELEASE)/
+rsync --delete -Hac build/bootstrap/ $FAB_PATH/bootstraps/$(basename $RELEASE)/
 
-generate release tarball and sign
----------------------------------
-
-BT=/turnkey/public/buildtasks
-export BT_CONFIG=$BT/config
-. $BT_CONFIG/common.cfg
+generate release tarball, sign and publish
+------------------------------------------
 
 ARCH=$(dpkg --print-architecture)
 TARBALL=$FAB_PATH/build/bootstrap-$(basename $RELEASE)-$ARCH.tar.gz
-
 ln build/bootstrap.tar.gz $TARBALL
-$BT/bin/generate-signature $TARBALL
-$BT/bin/signature-sign $TARBALL.sig
 
-publish
--------
-
-BT=/turnkey/public/buildtasks
-export BT_CONFIG=$BT/config
-
-. $BT_CONFIG/common.cfg
-export PUBLISH_DEST=${BT_PUBLISH_IMGS}/bootstrap/
-$BT/bin/publish-files $FAB_PATH/build/bootstrap-$(basename $RELEASE)-*
+cd turnkey-builds
+source vars
+export PUBLISH_DEST=${PUBLISH_IMAGES}/bootstrap/
+contrib/generate-signature $TARBALL
+contrib/publish-files $TARBALL $TARBALL.sig
 
