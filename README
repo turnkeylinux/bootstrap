@@ -1,6 +1,7 @@
 build
 -----
 
+cp generic /usr/share/debootstrap/scripts/
 export RELEASE=debian/::CODENAME::
 make clean
 make
