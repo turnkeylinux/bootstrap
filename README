@@ -20,6 +20,7 @@ ln build/bootstrap.tar.gz $TARBALL
 cd turnkey-builds
 source vars
 export PUBLISH_DEST=${PUBLISH_IMAGES}/bootstrap/
-contrib/generate-signature $TARBALL
-contrib/publish-files $TARBALL $TARBALL.sig
+$BT_BIN/generate-signature $TARBALL
+$BT_BIN/signature-sign $TARBALL.hash
+contrib/publish-files $TARBALL $TARBALL.hash
 
