@@ -46,6 +46,7 @@ tar
 util-linux
 sed
 libc-bin
+init-system-helpers
 
 /* non-essential packages needed for for bootstrapping */
 mawk            /* needed to provide awk to base-files */
