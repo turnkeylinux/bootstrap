@@ -47,6 +47,7 @@ util-linux
 sed
 libc-bin
 init-system-helpers
+sysvinit-utils
 
 /* non-essential packages needed for for bootstrapping */
 mawk            /* needed to provide awk to base-files */
