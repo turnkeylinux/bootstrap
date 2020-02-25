@@ -63,6 +63,7 @@ show-packages: $O/bootstrap
 	fab-chroot build/bootstrap "dpkg -l | grep ^ii"
 
 $O/bootstrap:
+	mkdir -p $O
 	debootstrap --arch=$(FAB_ARCH) --variant=$(VARIANT) --include=$(EXTRA_PKGS) $(CODENAME) $O/bootstrap $(MIRROR)
 
 .PHONY: bootstrap
