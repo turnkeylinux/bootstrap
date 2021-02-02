@@ -7,6 +7,7 @@ endif
 
 DISTRO = $(shell dirname $(RELEASE))
 CODENAME = $(shell basename $(RELEASE))
+LOCAL_CODENAME = $(shell lsb_release -sc)
 
 FAB_ARCH = $(shell dpkg --print-architecture)
 MIRROR ?= http://deb.debian.org/debian
@@ -64,6 +65,11 @@ show-packages: $O/bootstrap
 
 $O/bootstrap:
 	mkdir -p $O
+ifneq ($(LOCAL_CODENAME), $(CODENAME))
+	@echo
+	@echo '***Note: OS release transition may require a newer version of `debootstrap`.'
+	@echo
+endif
 	debootstrap --arch=$(FAB_ARCH) --variant=$(VARIANT) --include=$(EXTRA_PKGS) $(CODENAME) $O/bootstrap $(MIRROR)
 
 .PHONY: bootstrap
