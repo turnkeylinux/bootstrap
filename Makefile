@@ -12,7 +12,7 @@ LOCAL_CODENAME = $(shell lsb_release -sc)
 FAB_ARCH = $(shell dpkg --print-architecture)
 MIRROR ?= http://deb.debian.org/debian
 VARIANT ?= minbase
-EXTRA_PKGS ?= gpg,gpg-agent
+EXTRA_PKGS ?= gpg,gpg-agent,ca-certificates
 REMOVELIST ?= ./removelist
 
 # build output path
