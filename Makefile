@@ -1,15 +1,19 @@
 #!/usr/bin/make -f
-# Copyright (c) 2020 TurnKey GNU/Linux - https://www.turnkeylinux.org
+# Copyright (c) 2020-2021 TurnKey GNU/Linux - https://www.turnkeylinux.org
+
+LOCAL_DISTRO := $(shell lsb_release -si | tr [A-Z] [a-z])
+LOCAL_CODENAME := $(shell lsb_release -sc)
+LOCAL_RELEASE := $(LOCAL_DISTRO)/$(LOCAL_CODENAME)
 
 ifndef RELEASE
-$(error RELEASE not defined)
+$(info RELEASE not defined - falling back to system: '$(LOCAL_RELEASE)')
+RELEASE := $(LOCAL_RELEASE)
 endif
 
-DISTRO = $(shell dirname $(RELEASE))
-CODENAME = $(shell basename $(RELEASE))
-LOCAL_CODENAME = $(shell lsb_release -sc)
+DISTRO ?= $(shell dirname $(RELEASE))
+CODENAME ?= $(shell basename $(RELEASE))
 
-FAB_ARCH = $(shell dpkg --print-architecture)
+FAB_ARCH := $(shell dpkg --print-architecture)
 MIRROR ?= http://deb.debian.org/debian
 VARIANT ?= minbase
 EXTRA_PKGS ?= gpg,gpg-agent,ca-certificates
@@ -29,8 +33,10 @@ help:
 	@echo '3) environment variable'
 	@echo '4) built-in default (lowest precedence)'
 	@echo
-	@echo '# Mandatory configuration variables:'
+	@echo '# Recommended configuration variables:'
 	@echo '  RELEASE                    $(value RELEASE)'
+	@echo '                             if not set, will fall back to system:'
+	@echo '                             	$(value LOCAL_RELEASE)'
 	@echo
 	@echo '# Build context variables'
 	@echo '  FAB_ARCH                   $(value FAB_ARCH)'
