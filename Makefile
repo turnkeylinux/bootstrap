@@ -16,7 +16,7 @@ CODENAME ?= $(shell basename $(RELEASE))
 FAB_ARCH := $(shell dpkg --print-architecture)
 MIRROR ?= http://deb.debian.org/debian
 VARIANT ?= minbase
-EXTRA_PKGS ?= gpg,gpg-agent,ca-certificates
+EXTRA_PKGS ?= initramfs-tools,gpg,gpg-agent,ca-certificates
 REMOVELIST ?= ./removelist
 
 # build output path
