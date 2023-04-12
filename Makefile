@@ -16,7 +16,7 @@ CODENAME ?= $(shell basename $(RELEASE))
 FAB_ARCH := $(shell dpkg --print-architecture)
 MIRROR ?= http://deb.debian.org/debian
 VARIANT ?= minbase
-EXTRA_PKGS ?= initramfs-tools,gpg,gpg-agent,ca-certificates
+EXTRA_PKGS ?= initramfs-tools,gpg,gpg-agent,ca-certificates,lsb-release
 REMOVELIST ?= ./removelist
 
 # build output path
@@ -90,3 +90,7 @@ $O/bootstrap.tar.gz: removelist
 
 .PHONY: bootstrap.tar.gz
 bootstrap.tar.gz: $O/bootstrap.tar.gz
+
+.PHONY: install
+install: removelist
+	rsync --delete -Hac $O/bootstrap/ $(FAB_PATH)/bootstraps/$(shell basename $(CODENAME))/
