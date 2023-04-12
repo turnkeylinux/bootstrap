@@ -19,17 +19,14 @@ Build & copy to bootstraps directory
 
 If you are building a bootstrap for local use only, then it is not necessary
 to do a complete ``make`` (which will generate a tarball as noted below).
-Instead you can just build to the ``removelist`` target.
+Instead you can just build to the ``install`` target.
 
-That will build the bootstrap and remove the pre-set list of files noted
-within the removelist file. You can then copy the generated bootstrap
-across to the bootstraps directory::
+That will build the bootstrap, remove the pre-set list of files noted
+within the removelist file and copy the bootstrap to
+``$FAB_PATH/bootstraps/$(basename $RELEASE)``::
 
-    export RELEASE=debian/::CODENAME::
     make clean
-    make removelist
-    rsync --delete -Hac build/bootstrap/ $FAB_PATH/bootstraps/$(basename $RELEASE)/
-
+    make install
 
 Generate release tarball, sign and publish
 ==========================================
