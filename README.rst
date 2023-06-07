@@ -2,12 +2,13 @@ About
 =====
 
 This project builds a Debian ``bootstrap`` for use as a base for
-building TurnKey GNU/Linux appliances.
+building TurnKey GNU/Linux appliances. It also supports building an
+Ubuntu base. Please note that TurnKey is built on Debian, Ubuntu
+support should be considered "second class".
 
 A ``bootstrap`` is the minimal root filesystem in which packages can
-be installed. As of v16.0 / Debian 10/Buster TurnKey uses a default
-"minbase" variant Debian bootstrap, with the addition of a couple of
-packages.
+be installed. TurnKey uses a default "minbase" variant Debian bootstrap,
+with the addition of a couple of packages.
 
 For further info please run::
 

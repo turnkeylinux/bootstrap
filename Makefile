@@ -14,7 +14,13 @@ DISTRO ?= $(shell dirname $(RELEASE))
 CODENAME ?= $(shell basename $(RELEASE))
 
 FAB_ARCH := $(shell dpkg --print-architecture)
-MIRROR ?= http://deb.debian.org/debian
+ifeq ($(DISTRO), debian)
+	MIRROR ?= http://deb.debian.org/debian
+else ifeq ($(DISTRO), ubuntu)
+	MIRROR ?= http://archive.ubuntu.com/ubuntu
+else ifeq ($(MIRROR),)
+$(error Distro '$(DISTRO)' not suported)
+endif
 VARIANT ?= minbase
 EXTRA_PKGS ?= initramfs-tools,gpg,gpg-agent,ca-certificates,lsb-release
 REMOVELIST ?= ./removelist
